@@ -1,0 +1,14 @@
+Package: EasyCalculator
+Type: Package
+Title: Financial calculators for India
+Version: 23.5.0
+Author: Rakesh Poduval <poduval.rakesh@icloud.com>
+Maintainer: Rakesh Poduval <poduval.rakesh@icloud.com>
+Description: Easy to use financial calculators. 
+License: GPL-2
+Imports: plyr
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.2.3
+Depends: 
+    R (>= 2.10)
