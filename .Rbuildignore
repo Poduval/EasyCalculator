@@ -3,3 +3,5 @@
 ^Materials$
 ^Design$
 ^Sticker$
+^.*\.Rproj$
+^\.Rproj\.user$
