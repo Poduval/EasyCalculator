@@ -6,7 +6,7 @@ document()
 check(quiet = FALSE)
 build(path = "Release/", quiet = FALSE, binary = FALSE)
 install()
-# install.packages("release/taxcalculator_23.5.0.tar.gz", repos = NULL)
+# install.packages("release/EasyCalculator_23.5.0.tar.gz", repos = NULL)
 
 if (FALSE) {
   # RUN IN A FRESH SESSION
