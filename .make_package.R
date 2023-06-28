@@ -1,11 +1,13 @@
+# Initialize ====
+
 library(devtools)
+pkg <- normalizePath("EasyCalculators", mustWork = TRUE)
 
-use_build_ignore(c('make_package.R', 'Release', 'Materials', 'Design', 'Sticker'))
+document(pkg)
+check(pkg, quiet = FALSE)
+build(pkg, path = "5-Release/", quiet = FALSE, binary = FALSE)
+install(pkg)
 
-document()
-check(quiet = FALSE)
-build(path = "Release/", quiet = FALSE, binary = FALSE)
-install()
 # install.packages("release/EasyCalculator_23.5.0.tar.gz", repos = NULL)
 
 if (FALSE) {

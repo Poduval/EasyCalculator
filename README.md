@@ -1,4 +1,4 @@
-# Easy Calculator
+# Easy Calculators
 Easy financial calculators for India. 
 
   * Tax calculator: `taxcalculator()`
@@ -18,5 +18,15 @@ Easy financial calculators for India.
   
 ## References 
 
+## To do's
+
+* Add print, summary, plot methods for `taxcalculator` class.
+* Make a sticker for the package.
+* Add a cheat sheet. 
+* Add vignette with examples.
+* Add vignette with concepts implemented in the package.
+* Add embedded shiny app with single appraisal.
+* Add feature to make bulk appraisal.
+* Add links to the reference documents. 
 
 
