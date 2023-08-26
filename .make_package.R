@@ -1,8 +1,13 @@
-# Initialize ====
+
+# data ====
+library(openxlsx)
+data.temp <- read.xlsx("2-materials/data.xlsx", sheet = 1)
+save(data.temp, file = "EasyCalculators/data/data.RData")
+
+# packaging ====
 
 library(devtools)
 pkg <- normalizePath("EasyCalculators", mustWork = TRUE)
-
 document(pkg)
 check(pkg, quiet = FALSE)
 build(pkg, path = "5-Release/", quiet = FALSE, binary = FALSE)
