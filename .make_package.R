@@ -15,6 +15,7 @@ build(pkg, path = "Release/", quiet = FALSE, binary = FALSE)
 install(pkg)
 
 # install.packages("release/EasyCalculator_23.5.0.tar.gz", repos = NULL)
+# devtools::install_github("Poduval/EasyCalculator/EasyCalculators")
 
 if (FALSE) {
   # RUN IN A FRESH SESSION
