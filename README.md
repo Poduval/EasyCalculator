@@ -13,7 +13,7 @@ Easy financial calculators for India.
 
 ```r
 # Under development
-devtools::install_github("Poduval/...")
+devtools::install_github("Poduval/EasyCalculator/EasyCalculators")
 ```
 
 ## Usage
