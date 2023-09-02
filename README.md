@@ -1,4 +1,5 @@
-# Easy Calculators
+# {EasyCalculators} <a href='https://github.com/Poduval/EasyCalculator'><img src='Sticker/logo.png' align="right" height="139" /></a>
+
 Easy financial calculators for India. 
 
   * Tax calculator: `taxcalculator()`
