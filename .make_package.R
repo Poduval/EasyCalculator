@@ -1,8 +1,9 @@
 
 # data ====
 library(openxlsx)
-data.temp <- read.xlsx("2-materials/data.xlsx", sheet = 1)
-save(data.temp, file = "EasyCalculators/data/data.RData")
+
+# data.temp <- read.xlsx("Materials/data.xlsx", sheet = 1)
+# save(data.temp, file = "EasyCalculators/data/data.RData")
 
 # packaging ====
 
@@ -10,7 +11,7 @@ library(devtools)
 pkg <- normalizePath("EasyCalculators", mustWork = TRUE)
 document(pkg)
 check(pkg, quiet = FALSE)
-build(pkg, path = "5-Release/", quiet = FALSE, binary = FALSE)
+build(pkg, path = "Release/", quiet = FALSE, binary = FALSE)
 install(pkg)
 
 # install.packages("release/EasyCalculator_23.5.0.tar.gz", repos = NULL)
@@ -18,11 +19,11 @@ install(pkg)
 if (FALSE) {
   # RUN IN A FRESH SESSION
 
-  packageVersion(pkg = "EasyCalculator")
-  packageDescription(pkg = "EasyCalculator")
-  news(package = "EasyCalculator")
+  packageVersion(pkg = "EasyCalculators")
+  packageDescription(pkg = "EasyCalculators")
+  news(package = "EasyCalculators")
 
-  library(EasyCalculator)
+  library(EasyCalculators)
   options(scipen = 999)
 
   tax_payable(2500000)
@@ -36,8 +37,9 @@ if (FALSE) {
     mutate(id = 1:n(),
            declared_80C = annual_income * 0.10,
            declared_NPS = pmax(50000, annual_income * 0.05)) %>%
-    arrange(tax_regime) %>%
-    tax_payable()
+    arrange(tax_regime) -> x
+  x
+  tax_payable(X)
 
 }
 

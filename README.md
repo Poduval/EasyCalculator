@@ -2,9 +2,9 @@
 
 Easy financial calculators for India. 
 
-  * Tax calculator: `taxcalculator()`
-  * GST calculator: `gstCalculator()`
-  * Loan scheduler: `loanSchedular()`
+  * Tax calculator: `tax_payable()`
+  * GST calculator: `gst_calculator()`
+  * Loan scheduler: `loan_schedular()`
   * ...
 
 ## Overview
