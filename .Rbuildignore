@@ -1,8 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^make_package.R$
+^_make_package.R$
 [.]Rproj$
-^materials$
+^backlog
 ^logo.png$
 ^\.github$
-^revdep$

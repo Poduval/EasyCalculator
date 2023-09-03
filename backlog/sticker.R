@@ -2,7 +2,7 @@
 library(hexSticker)
 
 sticker_icon <- sticker(
-  "Sticker/indian_coin_back.png", 
+  "backlog/logo_picture_indian_coin_back.png", 
   s_x = 1, s_y = .75, 
   s_width = 0.4, s_height = 0.4,
   p_size = 15, p_color = "brown", p_family = "Aller_Rg", p_fontface = "plain",
@@ -10,6 +10,6 @@ sticker_icon <- sticker(
   spotlight = FALSE,
   dpi = 300,
   package = "Easy Calculator", 
-  filename = "Sticker/logo.png")
+  filename = "logo.png")
 
 sticker_icon
