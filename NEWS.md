@@ -1,4 +1,4 @@
-# EasyCalculator 0.1.0
+# EasyCalculator 0.0.1
 
 This is the initial release.
 
