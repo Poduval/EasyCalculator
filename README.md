@@ -12,7 +12,6 @@ Easy financial calculators for India.
 ```r
 devtools::install_github("Poduval/EasyCalculator/EasyCalculators")
 ```
-
 ## Usage
 
 ### Tax calculator
@@ -25,15 +24,3 @@ devtools::install_github("Poduval/EasyCalculator/EasyCalculators")
   
 ## References 
 
-## Backlog
-
-* GST calculator: `gst_calculator()`
-* Loan scheduler: `loan_schedular()`
-* Add print, summary, and plot methods for `taxcalculator` class.
-* Make a sticker for the package.
-* Add a cheat sheet. 
-* Add a vignette with examples.
-* Add a vignette with concepts implemented in the package.
-* Add an embedded shiny app with a single appraisal.
-* Add a feature to make bulk appraisals.
-* Add links to the reference documents. 
