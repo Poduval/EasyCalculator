@@ -5,3 +5,5 @@
 ^backlog
 ^logo.png$
 ^\.github$
+^release$
+^backlog$
