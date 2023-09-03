@@ -6,7 +6,7 @@ library(devtools)
 # Files to be ignored for packaging ====
 
 use_build_ignore(c("^make_package.R$", "[.]Rproj$", 
-                   "^materials$", "^logo.png$"), escape = FALSE)
+                   "^backlog$", "^logo.png$"), escape = FALSE)
 
 # Update description file ====
 use_description(
