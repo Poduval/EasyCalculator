@@ -64,7 +64,7 @@ if (FALSE) {
   packageDescription(pkg = "EasyCalculator")
   news(package = "EasyCalculator")
 
-  library(EasyCalculators)
+  library(EasyCalculator)
   options(scipen = 999)
 
   tax_payable(2500000)
