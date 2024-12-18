@@ -2,9 +2,5 @@
 ^\.Rproj\.user$
 ^_make_package.R$
 [.]Rproj$
-^backlog
-^logo.png$
 ^\.github$
-^release$
-^backlog$
 ^LICENSE\.md$

@@ -1,4 +1,5 @@
 Version: 1.0
+ProjectId: 3dc30740-2480-4b29-8b68-1d34fb0c947d
 
 RestoreWorkspace: Default
 SaveWorkspace: Default
@@ -15,3 +16,7 @@ LaTeX: pdfLaTeX
 BuildType: Package
 PackageUseDevtools: Yes
 PackageInstallArgs: --no-multiarch --with-keep.source
+
+PythonType: system
+PythonVersion: 3.12.5
+PythonPath: /Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12
