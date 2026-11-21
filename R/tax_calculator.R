@@ -39,7 +39,8 @@ options(scipen = 9999)
 #' @rdname tax_payable
 #' @name tax_payable
 #' @title Method to calculate final payable tax
-#' @description Returns tax amount payable
+#' @description Income tax calculator. Returns the tax amount payable under the
+#' old or new regime, for a numeric vector of incomes or a data frame.
 #' @param x annual income
 #' @param ... additional parameters
 #'
@@ -57,7 +58,7 @@ tax_payable <- function(x, ...) UseMethod("tax_payable")
 #'
 #' @examples
 #' \dontrun{
-#' library(taxcalculator)
+#' library(EasyCalculator)
 #' tax_payable(1150000)
 #' }
 #' @export
@@ -94,7 +95,7 @@ tax_payable.default <- function(
 #'
 #' @examples
 #' \dontrun{
-#' library(taxcalculator)
+#' library(EasyCalculator)
 #' x <- cbind.data.frame(id = c(1, 2, 3), annual_income = c(1400000, 2000000, 3000000))
 #' tax_payable(x)
 #' }
@@ -291,12 +292,13 @@ tax_payable.data.frame <- function(x) {
 #'
 #' @examples
 #' \dontrun{
-#' library(taxcalculator)
+#' library(EasyCalculator)
 #' make_slab_adjustments(2000000, 1200000, 1500000, 0.3)
 #' make_slab_adjustments(2000000, 1500000, Inf, 0.3)
 #' }
 #'
 #' @import plyr
+#' @keywords internal
 #'
 make_slab_adjustments <- function(x, slab_min = 0, slab_max = 0, slab_pct = 0) {
   slab_max <- pmax(slab_min, slab_max)
@@ -317,6 +319,7 @@ make_slab_adjustments <- function(x, slab_min = 0, slab_max = 0, slab_pct = 0) {
 #' @param x a ITR class object
 #' @param partial logical, whether to print only a subset of columns
 #' @param ... additional parameters for print.data.frame
+#' @keywords internal
 #' @export
 #'
 print.ITR <- function(x, partial = TRUE, ...) {
@@ -344,7 +347,7 @@ print.ITR <- function(x, partial = TRUE, ...) {
 #'   \item{financial_year}{financial year}
 #'   \item{rebate.info}{comments or additional information}
 #' }
-#' @export
+#' @keywords internal
 #'
 data.taxrebate <- read.table(
   text = "
@@ -371,7 +374,7 @@ data.taxrebate <- read.table(
 #'   \item{financial_year}{financial year}
 #'   \item{rebate.info}{comments or additional information}
 #' }
-#' @export
+#' @keywords internal
 #'
 data.rebate_on_investments <- read.table(
   text = "
@@ -399,7 +402,7 @@ data.rebate_on_investments <- read.table(
 #'   \item{financial_year}{financial year}
 #'   \item{rebate.info}{comments or additional information}
 #' }
-#' @export
+#' @keywords internal
 #'
 data.taxrebate_under87A <- read.table(
   text = "
@@ -425,7 +428,7 @@ data.taxrebate_under87A <- read.table(
 #'   \item{financial_year}{financial year}
 #'   \item{slab.info}{comments or additional information}
 #' }
-#' @export
+#' @keywords internal
 #'
 data.taxslabs <- read.table(
   text = "

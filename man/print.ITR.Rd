@@ -16,3 +16,4 @@
 \description{
 print method for class "ITR"
 }
+\keyword{internal}

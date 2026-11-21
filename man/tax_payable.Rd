@@ -24,7 +24,8 @@ tax_payable(x, ...)
 \item{tax_regime}{tax regime, old or new}
 }
 \description{
-Returns tax amount payable
+Income tax calculator. Returns the tax amount payable under the
+old or new regime, for a numeric vector of incomes or a data frame.
 
 default method for numeric vector input
 
@@ -32,11 +33,11 @@ Function to calculate final payable tax
 }
 \examples{
 \dontrun{
-library(taxcalculator)
+library(EasyCalculator)
 tax_payable(1150000)
 }
 \dontrun{
-library(taxcalculator)
+library(EasyCalculator)
 x <- cbind.data.frame(id = c(1, 2, 3), annual_income = c(1400000, 2000000, 3000000))
 tax_payable(x)
 }

@@ -3,7 +3,10 @@ Title: Financial calculators
 Version: 0.0.1
 Authors@R: 
     person("Rakesh", "Poduval", , "poduval.rakesh@icloud.com", role = c("aut", "cre", "cph"))
-Description: Easy to use financial calculators for India.
+Description: A collection of easy to use financial calculators for India.
+    Currently includes an income tax calculator (old and new regimes) that
+    works for one person or a whole data frame; more calculators such as GST
+    and loan schedules are planned.
 License: GPL (>= 2)
 Depends: 
     R (>= 4.1.0)

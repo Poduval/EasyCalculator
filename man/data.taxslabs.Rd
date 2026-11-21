@@ -22,4 +22,4 @@ data.taxslabs
 \description{
 tax slabs for both old and new regime
 }
-\keyword{datasets}
+\keyword{internal}

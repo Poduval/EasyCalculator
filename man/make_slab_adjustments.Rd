@@ -20,9 +20,10 @@ function to calculate tax between slabs
 }
 \examples{
 \dontrun{
-library(taxcalculator)
+library(EasyCalculator)
 make_slab_adjustments(2000000, 1200000, 1500000, 0.3)
 make_slab_adjustments(2000000, 1500000, Inf, 0.3)
 }
 
 }
+\keyword{internal}
