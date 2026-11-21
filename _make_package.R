@@ -13,7 +13,9 @@ use_description(
     Title = "Financial calculators",
     Version = "0.0.1",
     Description = "Easy to use financial calculators for India.",
-    `Authors@R` = "person('Rakesh', 'Poduval', email = 'poduval.rakesh@icloud.com', role = c('aut', 'cre', 'cph'))",
+    `Authors@R` = "person('Rakesh', 'Poduval', 
+                          email = 'poduval.rakesh@icloud.com', 
+                          role = c('aut', 'cre', 'cph'))",
     Depends = "R (>= 3.6.3)",
     LazyData = TRUE
   ),
