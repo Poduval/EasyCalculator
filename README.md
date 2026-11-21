@@ -6,13 +6,13 @@
 
 ### 🇮🇳 Simple, transparent financial calculators for India — built in R
 
-Compute income tax under the **Old** and **New** regimes for one person or a whole portfolio, in a single line of R.
+A growing toolbox of financial calculators — **income tax** today, with **GST** and **loan** calculators on the way — each usable for one person or a whole portfolio in a single line of R.
 
 <p>
   <a href="https://poduval.github.io/EasyCalculator/"><img src="https://img.shields.io/badge/docs-pkgdown-blue?logo=readthedocs&logoColor=white" alt="Documentation site" /></a>
   <a href="https://github.com/Poduval/EasyCalculator/actions/workflows/check-standard.yaml"><img src="https://github.com/Poduval/EasyCalculator/actions/workflows/check-standard.yaml/badge.svg" alt="R-CMD-check" /></a>
   <img src="https://img.shields.io/badge/version-0.0.1-blue?logo=semanticweb&logoColor=white" alt="Version 0.0.1" />
-  <img src="https://img.shields.io/badge/R-%E2%89%A5%203.6.3-276DC3?logo=r&logoColor=white" alt="R >= 3.6.3" />
+  <img src="https://img.shields.io/badge/R-%E2%89%A5%204.1.0-276DC3?logo=r&logoColor=white" alt="R >= 4.1.0" />
   <img src="https://img.shields.io/badge/license-GPL--2-green?logo=gnu&logoColor=white" alt="License GPL-2" />
   <img src="https://img.shields.io/badge/status-early%20development-orange" alt="Status: early development" />
   <img src="https://img.shields.io/badge/PRs-welcome-brightgreen" alt="PRs welcome" />
@@ -20,8 +20,8 @@ Compute income tax under the **Old** and **New** regimes for one person or a who
 
 [📦 Install](#-installation) ·
 [🚀 Quick start](#-quick-start) ·
+[🧰 Calculators](#-calculators) ·
 [🧮 Tax calculator](#-tax-calculator) ·
-[⚙️ How it works](#%EF%B8%8F-how-it-works) ·
 [🗺️ Roadmap](#%EF%B8%8F-roadmap) ·
 [🤝 Contributing](#-contributing)
 
@@ -39,13 +39,23 @@ Compute income tax under the **Old** and **New** regimes for one person or a who
 
 | | Feature | What you get |
 |---|---|---|
+| 🧰 | **Many calculators, one package** | Income tax today; GST and loan calculators planned — all sharing one consistent style. |
 | ⚡ | **One-liner** | `tax_payable(1150000)` — done. |
 | 👥 | **Bulk-ready** | Pass a data frame of hundreds of people and get one tidy result back. |
-| ⚖️ | **Old vs New regime** | Switch regimes with a single argument and compare. |
-| 💼 | **Deductions built in** | NPS, 80C, 80D, 24B and 80TTA, automatically capped at their statutory limits (old regime). |
-| 🧾 | **Rebate & cess aware** | Standard deduction, Section 87A rebate and 4% surcharge/cess are applied for you. |
-| 📊 | **Data-driven rules** | Slabs and limits live in plain data tables, not buried in code — easy to audit and update. |
-| 🔍 | **Transparent output** | A step-by-step breakdown (taxable amount, slab tax, rebate, surcharge), not just a final number. |
+| 📊 | **Data-driven rules** | Rates, slabs and limits live in plain data tables, not buried in code — easy to audit and update. |
+| 🔍 | **Transparent output** | A step-by-step breakdown, not just a final number. |
+
+---
+
+## 🧰 Calculators
+
+| Calculator | Function | Status |
+|---|---|:---:|
+| 🧮 Income tax (old vs new regime) | `tax_payable()` | ✅ Available |
+| 🧾 GST | `gst_calculator()` | 🗓️ Planned |
+| 🏦 Loan scheduler | `loan_schedular()` | 🗓️ Planned |
+
+Every calculator is documented on the [reference page](https://poduval.github.io/EasyCalculator/reference/index.html) of the package website.
 
 ---
 
@@ -60,11 +70,13 @@ devtools::install_github("Poduval/EasyCalculator")
 library(EasyCalculator)
 ```
 
-> 💡 Requires **R ≥ 3.6.3** and the [`plyr`](https://CRAN.R-project.org/package=plyr) package.
+> 💡 Requires **R ≥ 4.1.0** and the [`plyr`](https://CRAN.R-project.org/package=plyr) package.
 
 ---
 
 ## 🚀 Quick start
+
+The examples below use the income tax calculator, the first one available.
 
 ### 👤 A single taxpayer
 
@@ -105,6 +117,8 @@ tax_payable(person)
 ---
 
 ## 🧮 Tax calculator
+
+`tax_payable()` computes Indian income tax under the **Old** and **New** regimes. It handles the standard deduction, investment deductions (NPS, 80C, 80D, 24B, 80TTA — capped at statutory limits, old regime), Section 87A rebate and 4% surcharge/cess.
 
 ### 🔧 Inputs
 
@@ -175,7 +189,7 @@ A data frame of class `ITR` with a readable `print()` method and full detail und
 
 ---
 
-## ⚙️ How it works
+### ⚙️ How it works
 
 ```mermaid
 flowchart LR
@@ -194,7 +208,7 @@ flowchart LR
     class G out;
 ```
 
-The package is deliberately small and layered:
+The tax calculator is deliberately small and layered (new calculators follow the same generic → method → data-table pattern):
 
 ```mermaid
 flowchart TB
@@ -215,7 +229,7 @@ flowchart TB
 timeline
     title EasyCalculator journey
     section Released
-        v0.0.1 : 🧮 Income tax calculator : ⚖️ Old & new regimes : 👥 Bulk calculation
+        v0.0.1 : 🧮 Income tax calculator
     section Planned
         Calculators : 🧾 GST calculator : 🏦 Loan scheduler
         Insights : 📊 summary & plot methods : 📘 Vignettes & cheat sheet
@@ -234,7 +248,7 @@ timeline
 
 ## ⚠️ Good to know
 
-- 📅 Only **FY 2024** rules are included today. Unknown years fall back to 2024 in data-frame input.
+- 📅 For the tax calculator, only **FY 2024** rules are included today. Unknown years fall back to 2024 in data-frame input.
 - 🚧 The package is **under review**; expect changes and improvements, and please report any issues you find.
 - 🧑‍⚖️ This package is an aid for estimation and learning — **not** professional tax advice. Always verify against the official Income Tax Department rules or consult a qualified tax professional.
 

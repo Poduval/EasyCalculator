@@ -8,7 +8,10 @@ This is the initial release.
 * Fix: 4% cess is now applied in `tax_payable()` (tax was understated by 4%).
 * Fix: `print.ITR` is now used when printing results (class order was reversed).
 
-## Backlog 
+* Docs now present EasyCalculator as a collection of calculators (README calculators table, package-level help page, pkgdown "Overview" / "Income tax" sections, DESCRIPTION).
+* Only `tax_payable()` is exported now. The `data.*` tables (`data.taxslabs`, `data.taxrebate`, `data.taxrebate_under87A`, `data.rebate_on_investments`) are internal; use `EasyCalculator:::data.taxslabs` if needed. Internal topics are hidden from the pkgdown reference.
+
+## Backlog
 * Add GST calculator: `gst_calculator()`
 * Add Loan scheduler: `loan_schedular()`
 * Add print, summary, and plot methods for the class `taxcalculator`.
