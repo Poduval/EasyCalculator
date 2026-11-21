@@ -1,0 +1,293 @@
+# EasyCalculator
+
+![EasyCalculator logo](reference/figures/logo.png)
+
+### 🇮🇳 Simple, transparent financial calculators for India — built in R
+
+A growing toolbox of financial calculators — **income tax** today, with
+**GST** and **loan** calculators on the way — each usable for one person
+or a whole portfolio in a single line of R.
+
+[![Documentation
+site](https://img.shields.io/badge/docs-pkgdown-blue?logo=readthedocs&logoColor=white)](https://poduval.github.io/EasyCalculator/)
+[![R-CMD-check](https://github.com/Poduval/EasyCalculator/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/Poduval/EasyCalculator/actions/workflows/check-standard.yaml)
+![Version
+0.0.1](https://img.shields.io/badge/version-0.0.1-blue?logo=semanticweb&logoColor=white)![R
+\>= 4.1.0” /\> \<img
+src=](https://img.shields.io/badge/R-%E2%89%A5%204.1.0-276DC3?logo=r&logoColor=white)![Status:
+early
+development](https://img.shields.io/badge/status-early%20development-orange)![PRs
+welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)
+
+[📦 Install](#id_-installation) · [🚀 Quick start](#id_-quick-start) ·
+[🧰 Calculators](#id_-calculators) · [🧮 Tax
+calculator](#id_-tax-calculator) · [🗺️ Roadmap](#id_%EF%B8%8F-roadmap) ·
+[🤝 Contributing](#id_-contributing)
+
+> \[!WARNING\] \### 🚧 Under review — major improvements on the way
+> EasyCalculator is currently **under active review**, and significant
+> improvements are being worked on. 🛠️ In the meantime you may run into
+> bugs, rough edges or results that don’t match the official rules.
+> **Please pardon any problems you find at this stage** 🙏 — and if you
+> spot one, [opening an
+> issue](https://github.com/Poduval/EasyCalculator/issues) would be a
+> big help. Thank you for your patience and support! 💙
+
+------------------------------------------------------------------------
+
+## ✨ Why EasyCalculator?
+
+|  | Feature | What you get |
+|----|----|----|
+| 🧰 | **Many calculators, one package** | Income tax today; GST and loan calculators planned — all sharing one consistent style. |
+| ⚡ | **One-liner** | `tax_payable(1150000)` — done. |
+| 👥 | **Bulk-ready** | Pass a data frame of hundreds of people and get one tidy result back. |
+| 📊 | **Data-driven rules** | Rates, slabs and limits live in plain data tables, not buried in code — easy to audit and update. |
+| 🔍 | **Transparent output** | A step-by-step breakdown, not just a final number. |
+
+------------------------------------------------------------------------
+
+## 🧰 Calculators
+
+| Calculator | Function | Status |
+|----|----|:--:|
+| 🧮 Income tax (old vs new regime) | [`tax_payable()`](https://poduval.github.io/EasyCalculator/reference/tax_payable.md) | ✅ Available |
+| 🧾 GST | `gst_calculator()` | 🗓️ Planned |
+| 🏦 Loan scheduler | `loan_schedular()` | 🗓️ Planned |
+
+Every calculator is documented on the [reference
+page](https://poduval.github.io/EasyCalculator/reference/index.html) of
+the package website.
+
+------------------------------------------------------------------------
+
+## 📦 Installation
+
+``` r
+
+# install.packages("devtools")
+devtools::install_github("Poduval/EasyCalculator")
+```
+
+``` r
+
+library(EasyCalculator)
+```
+
+> 💡 Requires **R ≥ 4.1.0** and the
+> [`plyr`](https://CRAN.R-project.org/package=plyr) package.
+
+------------------------------------------------------------------------
+
+## 🚀 Quick start
+
+The examples below use the income tax calculator, the first one
+available.
+
+### 👤 A single taxpayer
+
+``` r
+
+# New regime (default), financial year 2024
+tax_payable(1150000)
+
+# Old regime
+tax_payable(1150000, tax_regime = "old")
+```
+
+### 👥 Many taxpayers at once
+
+``` r
+
+people <- data.frame(
+  id            = c(1, 2, 3),
+  annual_income = c(1400000, 2000000, 3000000)
+)
+
+tax_payable(people)
+```
+
+### 💼 With investment deductions (old regime)
+
+``` r
+
+person <- data.frame(
+  id            = 1,
+  annual_income = 1500000,
+  tax_regime    = "old",
+  declared_NPS  = 50000,
+  declared_80C  = 150000,
+  declared_80D  = 25000
+)
+
+tax_payable(person)
+```
+
+------------------------------------------------------------------------
+
+## 🧮 Tax calculator
+
+[`tax_payable()`](https://poduval.github.io/EasyCalculator/reference/tax_payable.md)
+computes Indian income tax under the **Old** and **New** regimes. It
+handles the standard deduction, investment deductions (NPS, 80C, 80D,
+24B, 80TTA — capped at statutory limits, old regime), Section 87A rebate
+and 4% surcharge/cess.
+
+### 🔧 Inputs
+
+| Column | Required | Description |
+|----|:--:|----|
+| `id` | ✅ | Identifier for each taxpayer |
+| `annual_income` | ✅ | Gross annual income (₹) |
+| `financial_year` | ➖ | Defaults to `2024` |
+| `tax_regime` | ➖ | `"new"` (default) or `"old"` |
+| `declared_NPS` `declared_80C` `declared_80D` `declared_24B` `declared_80TTA` | ➖ | Declared investments / deductions (old regime only) |
+
+### 📤 Output
+
+A data frame of class `ITR` with a readable
+[`print()`](https://rdrr.io/r/base/print.html) method and full detail
+underneath:
+
+| Column                        | Meaning                                  |
+|-------------------------------|------------------------------------------|
+| 💰 `annual_income`            | Income you supplied                      |
+| 🧾 `taxable_amount`           | Income after exemptions and deductions   |
+| 📉 `rebate_under_investments` | Deductions allowed after applying limits |
+| 🧮 `tax_from_income_slab`     | Tax computed from the slabs              |
+| 🎁 `rebate_under_87A`         | Section 87A rebate applied               |
+| 🏛️ `tax_surcharge`            | 4% surcharge / cess                      |
+| ✅ `tax_value`                | The tax you owe                          |
+
+### 📈 FY 2024 slabs
+
+[TABLE]
+
+### 🏷️ Deduction limits (old regime, FY 2024)
+
+|   Section    | Covers                   | Limit (₹) |
+|:------------:|--------------------------|----------:|
+|  🏦 **NPS**  | National Pension Scheme  |    50,000 |
+|  🛡️ **80C**  | Tax-saving investments   |  1,50,000 |
+|  ⚕️ **80D**  | Medical insurance        |  1,50,000 |
+|  🏠 **24B**  | Home-loan interest       |  2,00,000 |
+| 💳 **80TTA** | Savings-account interest |    10,000 |
+
+------------------------------------------------------------------------
+
+### ⚙️ How it works
+
+``` mermaid
+flowchart LR
+    A["👤 Income &<br/>declarations"] --> B["🧾 Basic exemption<br/>+ standard deduction"]
+    B --> C["💼 Investment deductions<br/>(capped, old regime)"]
+    C --> D["📊 Slab tax"]
+    D --> E["🎁 Section 87A<br/>rebate"]
+    E --> F["🏛️ 4% surcharge<br/>/ cess"]
+    F --> G["✅ Tax payable"]
+
+    classDef input fill:#E3F2FD,stroke:#1E88E5,color:#0D47A1;
+    classDef step fill:#FFF8E1,stroke:#FB8C00,color:#E65100;
+    classDef out fill:#E8F5E9,stroke:#43A047,color:#1B5E20;
+    class A input;
+    class B,C,D,E,F step;
+    class G out;
+```
+
+The tax calculator is deliberately small and layered (new calculators
+follow the same generic → method → data-table pattern):
+
+``` mermaid
+flowchart TB
+    G["tax_payable(x, ...)<br/><i>S3 generic</i>"] --> N["tax_payable.default<br/><i>numeric vector</i>"]
+    G --> DF["tax_payable.data.frame<br/><i>the engine</i>"]
+    N -->|builds a data frame| DF
+    DF --> T[("📚 data.* tables<br/>slabs · rebates · limits")]
+    DF --> P["print.ITR<br/><i>friendly summary</i>"]
+```
+
+> 🧠 **Rules are data, not code.** Every slab, exemption and limit is
+> stored in a table keyed by `tax_regime` and `financial_year`, so
+> supporting a new Budget is mostly a matter of adding rows.
+
+------------------------------------------------------------------------
+
+## 🗺️ Roadmap
+
+``` mermaid
+timeline
+    title EasyCalculator journey
+    section Released
+        v0.0.1 : 🧮 Income tax calculator
+    section Planned
+        Calculators : 🧾 GST calculator : 🏦 Loan scheduler
+        Insights : 📊 summary & plot methods : 📘 Vignettes & cheat sheet
+        Apps : 🖥️ Embedded Shiny app : 🔗 Links to official references
+```
+
+🧮 Income tax calculator —
+[`tax_payable()`](https://poduval.github.io/EasyCalculator/reference/tax_payable.md)
+
+🧾 GST calculator — `gst_calculator()`
+
+🏦 Loan scheduler — `loan_schedular()`
+
+📊 [`summary()`](https://rdrr.io/r/base/summary.html) and
+[`plot()`](https://rdrr.io/r/graphics/plot.default.html) methods
+
+📘 Vignettes (examples and concepts) and a cheat sheet
+
+🖥️ Embedded Shiny app
+
+📅 Additional financial years
+
+------------------------------------------------------------------------
+
+## ⚠️ Good to know
+
+- 📅 For the tax calculator, only **FY 2024** rules are included today.
+  Unknown years fall back to 2024 in data-frame input.
+- 🚧 The package is **under review**; expect changes and improvements,
+  and please report any issues you find.
+- 🧑‍⚖️ This package is an aid for estimation and learning — **not**
+  professional tax advice. Always verify against the official Income Tax
+  Department rules or consult a qualified tax professional.
+
+------------------------------------------------------------------------
+
+## 🤝 Contributing
+
+Contributions, issues and ideas are welcome! 🙌
+
+1.  🍴 Fork the repo and create a feature branch
+2.  🛠️ Make your change (edit roxygen comments in `R/`, then run
+    `devtools::document()`)
+3.  ✅ Run `devtools::check()`
+4.  📬 Open a pull request
+
+------------------------------------------------------------------------
+
+## 📄 License
+
+Released under the **GPL-2** license. See
+[LICENSE.md](https://poduval.github.io/EasyCalculator/LICENSE.md).
+
+Made with ❤️ in R by [Rakesh Poduval](https://github.com/Poduval)
+
+⭐ If you find this useful, please consider starring the repository!
+
+# Package index
+
+## Overview
+
+- [`EasyCalculator`](https://poduval.github.io/EasyCalculator/reference/EasyCalculator-package.md)
+  [`EasyCalculator-package`](https://poduval.github.io/EasyCalculator/reference/EasyCalculator-package.md)
+  : EasyCalculator: simple financial calculators for India
+
+## Income tax
+
+Income tax calculation (old vs new regime).
+
+- [`tax_payable()`](https://poduval.github.io/EasyCalculator/reference/tax_payable.md)
+  : Method to calculate final payable tax
+
