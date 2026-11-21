@@ -1,0 +1,19 @@
+url: https://poduval.github.io/EasyCalculator/
+destination: pkgdown-site
+
+template:
+  bootstrap: 5
+
+reference:
+  - title: Calculators
+    desc: Income tax calculation (old vs new regime).
+    contents:
+      - tax_payable
+      - print.ITR
+  - title: Tax rule tables
+    desc: Data tables that drive the calculation, keyed by regime and financial year.
+    contents:
+      - starts_with("data.")
+  - title: Internals
+    contents:
+      - make_slab_adjustments

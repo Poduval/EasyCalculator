@@ -5,3 +5,6 @@
 ^\.github$
 ^LICENSE\.md$
 ^misc$
+^_pkgdown\.yml$
+^pkgdown-site$
+^pkgdown$

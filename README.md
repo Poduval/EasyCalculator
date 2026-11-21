@@ -9,6 +9,7 @@
 Compute income tax under the **Old** and **New** regimes for one person or a whole portfolio, in a single line of R.
 
 <p>
+  <a href="https://poduval.github.io/EasyCalculator/"><img src="https://img.shields.io/badge/docs-pkgdown-blue?logo=readthedocs&logoColor=white" alt="Documentation site" /></a>
   <a href="https://github.com/Poduval/EasyCalculator/actions/workflows/check-standard.yaml"><img src="https://github.com/Poduval/EasyCalculator/actions/workflows/check-standard.yaml/badge.svg" alt="R-CMD-check" /></a>
   <img src="https://img.shields.io/badge/version-0.0.1-blue?logo=semanticweb&logoColor=white" alt="Version 0.0.1" />
   <img src="https://img.shields.io/badge/R-%E2%89%A5%203.6.3-276DC3?logo=r&logoColor=white" alt="R >= 3.6.3" />

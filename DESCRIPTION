@@ -15,5 +15,5 @@ Imports:
     plyr,
     stats,
     utils
-URL: https://github.com/Poduval/EasyCalculator
+URL: https://poduval.github.io/EasyCalculator/, https://github.com/Poduval/EasyCalculator
 BugReports: https://github.com/Poduval/EasyCalculator/issues
