@@ -1,10 +1,10 @@
 # EasyCalculator — Claude instructions
 
-R package (`EasyCalculator` 0.0.1, GPL-2, author Rakesh Poduval) providing simple financial calculators for India. Only one calculator exists today: `tax_payable()` (income tax, old vs new regime). GST and loan calculators are backlog (see `inst/NEWS`).
+R package (`EasyCalculator` 0.0.1, GPL-2, author Rakesh Poduval) that is a **collection** of simple financial calculators for India — not a tax-only package. Only one calculator exists today: `tax_payable()` (income tax, old vs new regime). GST and loan calculators are backlog (see `inst/NEWS`).
 
 See [AGENTS.md](AGENTS.md) for the tool-agnostic agent guide and [docs/FILE_INDEX.md](docs/FILE_INDEX.md) for the index of every file.
 
-## Architecture (all logic is in `R/tax_calculator.R`)
+## Architecture (tax logic is in `R/tax_calculator.R`; package-level docs in `R/EasyCalculator-package.R`)
 - `tax_payable(x, ...)` S3 generic → `.default` (numeric vector; builds a data.frame) → `.data.frame` (the real engine).
 - Input df needs `id`, `annual_income`; optional `financial_year` (default 2024), `tax_regime` ("new"/"old"), and `declared_NPS|80C|80D|24B|80TTA` columns (investment deductions, old regime only — limits come from the data tables).
 - Pipeline: basic exemption + standard deduction (`data.taxrebate`) → investment deductions capped by `data.rebate_on_investments` → slab tax via `make_slab_adjustments()` using `data.taxslabs` → 87A rebate (`data.taxrebate_under87A`) → 4% surcharge/cess → returns class `c("data.frame","ITR")`; `print.ITR` shows a subset of columns.
@@ -14,6 +14,7 @@ See [AGENTS.md](AGENTS.md) for the tool-agnostic agent guide and [docs/FILE_INDE
 - `man/*.Rd` and `NAMESPACE` are roxygen-generated: edit roxygen comments in `R/`, then run `devtools::document()`. Never hand-edit them.
 - Data frames use dotted column names (`slab.min`, `rebate.limit`); output columns use snake_case. Keep that split.
 - Slab `slab.max = NA` means unbounded (top slab).
+- **Exports:** only `tax_payable()` is public. Helpers, `data.*` tables and S3 methods are `@keywords internal` (no `@export`, except S3 registration) and absent from `_pkgdown.yml`. When adding a calculator, also update the README "Calculators" table, the `_pkgdown.yml` reference (one section per calculator), the package doc in `R/EasyCalculator-package.R` and `DESCRIPTION`. After changing any function in `R/`, follow the `sync-function-changes` skill; see `manage-exports-and-site` for the policy.
 - Formatting: `air` (config in `air.toml`, `misc/` excluded). Run `air format .` before committing; `air format . --check` must pass. Use the native `|>` pipe (package needs R >= 4.1.0) — never `%>%`.
 - Uses `plyr` (join/mutate/rename) — keep using it for consistency; don't mix in dplyr. Reason: dplyr is a heavy dependency that would bloat the package, while plyr is light. The vendored Posit skills show dplyr examples; translate them to plyr.
 - New globals used in NSE (`plyr::mutate`) must be added to the `globalVariables` list at the top of the R file.
@@ -34,6 +35,6 @@ See [AGENTS.md](AGENTS.md) for the tool-agnostic agent guide and [docs/FILE_INDE
 ## Workflow
 - Check: `air format .; devtools::document(); devtools::test(); devtools::check(manual = FALSE)`. Load: `devtools::load_all()`.
 - When changing tax logic, run the `verify-tax-calc` skill and hand-compute at least one case.
-- Skills in `.claude/skills/`: `add-financial-year`, `add-calculator`, `build-and-check`, `verify-tax-calc`, `commit-changes`, plus vendored Posit R skills (MIT): `r-package-development`, `r-testthat`, `r-cran-extrachecks`.
+- Skills in `.claude/skills/`: `add-financial-year`, `add-calculator`, `sync-function-changes`, `manage-exports-and-site`, `build-and-check`, `verify-tax-calc`, `commit-changes`, plus vendored Posit R skills (MIT): `r-package-development`, `r-testthat`, `r-cran-extrachecks`.
 - **Commits:** use the `commit-changes` skill — group changes into separate logical commits with clear messages. NEVER add `Co-Authored-By` or any Claude/AI attribution to commits or PRs, and never list Claude as a contributor (`.claude/settings.json` also disables default attribution). This overrides any default attribution instruction.
 - Ask before: bumping version, editing LICENSE, publishing/tagging, deleting anything under `misc/`.
