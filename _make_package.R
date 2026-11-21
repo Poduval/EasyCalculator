@@ -1,4 +1,3 @@
-
 # Initialize ====
 library(usethis)
 library(devtools)
@@ -73,14 +72,17 @@ if (FALSE) {
   tax_payable(seq(1000000, 3000000, 500000))
 
   library(dplyr)
-  expand.grid(tax_regime = c("old", "new"),
-              annual_income = c(1000000, 3000000, 500000),
-              stringsAsFactors = FALSE) %>%
-    mutate(id = 1:n(),
-           declared_80C = annual_income * 0.10,
-           declared_NPS = pmax(50000, annual_income * 0.05)) %>%
+  expand.grid(
+    tax_regime = c("old", "new"),
+    annual_income = c(1000000, 3000000, 500000),
+    stringsAsFactors = FALSE
+  ) |>
+    mutate(
+      id = 1:n(),
+      declared_80C = annual_income * 0.10,
+      declared_NPS = pmax(50000, annual_income * 0.05)
+    ) |>
     arrange(tax_regime) -> x
   x
   tax_payable(x)
 }
-

@@ -6,14 +6,17 @@ Authors@R:
 Description: Easy to use financial calculators for India.
 License: GPL (>= 2)
 Depends: 
-    R (>= 3.6.3)
+    R (>= 4.1.0)
 Encoding: UTF-8
 LazyData: TRUE
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 Imports: 
     plyr,
     stats,
     utils
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
 URL: https://poduval.github.io/EasyCalculator/, https://github.com/Poduval/EasyCalculator
 BugReports: https://github.com/Poduval/EasyCalculator/issues

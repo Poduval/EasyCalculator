@@ -5,6 +5,12 @@
 ^\.github$
 ^LICENSE\.md$
 ^misc$
+^\.claude$
+^AGENTS\.md$
+^CLAUDE\.md$
+^docs$
+^logo\.png$
 ^_pkgdown\.yml$
 ^pkgdown-site$
 ^pkgdown$
+^air\.toml$
