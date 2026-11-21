@@ -27,6 +27,12 @@ Compute income tax under the **Old** and **New** regimes for one person or a who
 
 </div>
 
+> [!WARNING]
+> ### 🚧 Under review — major improvements on the way
+> EasyCalculator is currently **under active review**, and significant improvements are being worked on. 🛠️
+> In the meantime you may run into bugs, rough edges or results that don't match the official rules.
+> **Please pardon any problems you find at this stage** 🙏 — and if you spot one, [opening an issue](https://github.com/Poduval/EasyCalculator/issues) would be a big help. Thank you for your patience and support! 💙
+
 ---
 
 ## ✨ Why EasyCalculator?
@@ -229,6 +235,7 @@ timeline
 ## ⚠️ Good to know
 
 - 📅 Only **FY 2024** rules are included today. Unknown years fall back to 2024 in data-frame input.
+- 🚧 The package is **under review**; expect changes and improvements, and please report any issues you find.
 - 🧑‍⚖️ This package is an aid for estimation and learning — **not** professional tax advice. Always verify against the official Income Tax Department rules or consult a qualified tax professional.
 
 ---

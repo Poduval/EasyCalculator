@@ -5,16 +5,16 @@ Every tracked file (and notable untracked ones) in the repo. Keep up to date.
 ## Root
 | File | Purpose |
 |---|---|
-| `DESCRIPTION` | Package metadata (EasyCalculator 0.0.1, deps R >= 3.6.3, roxygen 7.2.3). License field is a placeholder; Imports may be missing. |
+| `DESCRIPTION` | Package metadata (EasyCalculator 0.0.1, deps R >= 3.6.3, roxygen 7.2.3). License GPL (>= 2); Imports plyr/stats/utils; Suggests testthat (3e); URL/BugReports set. |
 | `NAMESPACE` | Roxygen-generated: S3 methods (`print.ITR`, `tax_payable.*`), exports (`tax_payable`, 4 `data.*`), `import(plyr)`, stats imports. |
 | `EasyCalculator.Rproj` | RStudio project file (build-ignored). |
 | `_make_package.R` | Maintainer scaffold script: usethis setup, build-ignore, GitHub actions, document/check/build/install, plus a commented demo block of usage examples. Not for wholesale execution. |
-| `.Rbuildignore` | Excludes Rproj, `.Rproj.user`, `_make_package.R`, `.github`, `LICENSE.md`, `misc`. |
+| `.Rbuildignore` | Excludes Rproj, `.Rproj.user`, `_make_package.R`, `.github`, `LICENSE.md`, `misc`, `.claude`, `AGENTS.md`, `CLAUDE.md`, `docs`, `logo.png`. |
 | `.gitignore` | Ignores `.Rproj.user`, `.Rhistory`, `.RData`, `.Ruserdata`, `.DS_Store`. |
-| `README.md` | Short overview, install via `devtools::install_github("Poduval/EasyCalculator")`, feature bullets. Sparse. |
+| `README.md` | Short overview, install via `devtools::install_github("Poduval/EasyCalculator")`, usage guide, slab tables, roadmap, "under review" notice. |
 | `LICENSE.md` | GPL licence text. |
 | `logo.png` | Package hex logo source (referenced by `use_logo`). |
-| `.DS_Store` | macOS junk, tracked by mistake; should be untracked. |
+| `.DS_Store` | macOS junk; always ignore (never stage). |
 | `CLAUDE.md` / `AGENTS.md` | Agent instructions (this guidance set). |
 
 ## R/
@@ -37,6 +37,19 @@ Every tracked file (and notable untracked ones) in the repo. Keep up to date.
 | File | Purpose |
 |---|---|
 | `inst/NEWS` | Changelog: 0.0.1 initial release + backlog (GST, loan scheduler, summary/plot methods, vignettes, shiny app). |
+
+## docs/
+| File | Purpose |
+|---|---|
+| `docs/FILE_INDEX.md` | This index. |
+| `docs/INDIAN_TAX_BACKGROUND.md` | Short research note: Indian tax rules the package implements, with source links and known gaps. |
+
+## tests/
+| File | Purpose |
+|---|---|
+| `tests/testthat.R` | testthat runner. |
+| `tests/testthat/test-make_slab_adjustments.R` | Unit tests for the slab helper (bounded/unbounded, vectorised). |
+| `tests/testthat/test-tax_payable.R` | Hand-computed FY 2024 cases (new/old regime, 87A, 80C cap, validation). Also covers the 4% cess and `print.ITR`. |
 
 ## data/
 Empty (only `.DS_Store`, untracked). Datasets are defined in code, not `.rda`.

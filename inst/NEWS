@@ -2,6 +2,12 @@
 
 This is the initial release.
 
+## Development
+* Add testthat test suite (`tests/testthat/`).
+* Add `docs/INDIAN_TAX_BACKGROUND.md` (rules and sources).
+* Fix: 4% cess is now applied in `tax_payable()` (tax was understated by 4%).
+* Fix: `print.ITR` is now used when printing results (class order was reversed).
+
 ## Backlog 
 * Add GST calculator: `gst_calculator()`
 * Add Loan scheduler: `loan_schedular()`
