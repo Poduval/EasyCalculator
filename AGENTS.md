@@ -9,6 +9,7 @@ Guidance for any AI coding agent working in this repo. Claude Code users: also s
 ```r
 devtools::load_all()          # develop
 devtools::document()          # regenerate man/ and NAMESPACE (never edit by hand)
+devtools::test()              # run tests/testthat
 devtools::check(manual = FALSE)
 devtools::install()
 ```
@@ -19,10 +20,12 @@ CI (`.github/workflows`): R-CMD-check, test-coverage, pkgdown on push/PR to main
 2. Keep dotted names for table columns, snake_case for output columns.
 3. Edit roxygen, then run `document()`. Commit regenerated `man/` and `NAMESPACE`.
 4. Don't touch `misc/` (excluded from build; archives/tarballs/spreadsheets), `LICENSE.md`, or run `_make_package.R` wholesale.
-5. Any new tax logic needs a test (create `tests/testthat/` via `usethis::use_testthat()` if absent) with hand-computed expected values.
+5. Any new tax logic needs a test in `tests/testthat/` with hand-computed expected values.
 6. Don't invent tax law. Cite the Finance Act/Budget source for any new slab/limit in the data table's info column or the PR description, and flag anything uncertain.
 7. Commits: grouped by purpose, specific `git add` paths, no AI attribution trailers of any kind.
-8. Keep changes minimal; don't refactor `plyr` usage unasked.
+8. After any `usethis::*` call, check `git diff DESCRIPTION` (License/Imports/URL must survive).
+9. Keep changes minimal; don't refactor `plyr` usage unasked.
+10. Format with `air format .` (config: `air.toml`) and use the native `|>` pipe, not `%>%`; package requires R >= 4.1.0.
 
 ## Skills (`.claude/skills/<name>/SKILL.md`)
 - `add-financial-year` — add a new FY's slabs/rebates/limits.
@@ -30,6 +33,9 @@ CI (`.github/workflows`): R-CMD-check, test-coverage, pkgdown on push/PR to main
 - `build-and-check` — document, check, build, install.
 - `verify-tax-calc` — sanity-check `tax_payable()` against hand calculations.
 - `commit-changes` — split changes into logical commits with good messages; **no** `Co-Authored-By`/AI attribution, no AI contributor.
+
+## Docs
+- [docs/INDIAN_TAX_BACKGROUND.md](docs/INDIAN_TAX_BACKGROUND.md) — the tax rules implemented, with sources and known gaps. Read before touching slabs/limits.
 
 ## Index
 Every file is described in [docs/FILE_INDEX.md](docs/FILE_INDEX.md). Update it when adding/removing files.

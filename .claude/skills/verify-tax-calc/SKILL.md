@@ -10,4 +10,4 @@ description: Sanity-check tax_payable() output against hand calculations after c
 3. Test the bulk path with `declared_80C`/`declared_NPS` columns (see demo in `_make_package.R`), and confirm the caps from `data.rebate_on_investments` apply.
 4. Cross-check against `misc/developments/New Comparison ... .xlsx` where applicable.
 5. Report any mismatch with both numbers; mind the known quirks (taxable_amount for 87A uses post-deduction amount; FY fallback to 2024 in data.frame method).
-6. Encode verified cases as testthat tests.
+6. Encode verified cases as testthat tests in `tests/testthat/test-tax_payable.R`.

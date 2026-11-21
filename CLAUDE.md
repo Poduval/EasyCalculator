@@ -14,24 +14,26 @@ See [AGENTS.md](AGENTS.md) for the tool-agnostic agent guide and [docs/FILE_INDE
 - `man/*.Rd` and `NAMESPACE` are roxygen-generated: edit roxygen comments in `R/`, then run `devtools::document()`. Never hand-edit them.
 - Data frames use dotted column names (`slab.min`, `rebate.limit`); output columns use snake_case. Keep that split.
 - Slab `slab.max = NA` means unbounded (top slab).
-- Uses `plyr` (join/mutate/rename) — keep using it for consistency; don't mix in dplyr.
+- Formatting: `air` (config in `air.toml`, `misc/` excluded). Run `air format .` before committing; `air format . --check` must pass. Use the native `|>` pipe (package needs R >= 4.1.0) — never `%>%`.
+- Uses `plyr` (join/mutate/rename) — keep using it for consistency; don't mix in dplyr. Reason: dplyr is a heavy dependency that would bloat the package, while plyr is light. The vendored Posit skills show dplyr examples; translate them to plyr.
 - New globals used in NSE (`plyr::mutate`) must be added to the `globalVariables` list at the top of the R file.
 - `misc/` is excluded from the build (`.Rbuildignore`); `misc/release` holds built tarballs; `misc/backlog` is old/unused material. Don't treat these as source.
 - Always ignore `.DS_Store` (never stage/commit it, don't propose untracking it) and `.Rproj.user`.
 
 ## Known issues / traps (verify before relying on them)
-- `DESCRIPTION` `License:` is still the usethis placeholder text; `_make_package.R` calls `use_gpl_license(2)`. Imports (`plyr`, `stats`, `utils`) may not be declared in DESCRIPTION — `use_package("plyr", "imports")` has lowercase "imports". Check with `devtools::check()`.
+- `DESCRIPTION` has `License: GPL (>= 2)` and declares Imports (`plyr`, `stats`, `utils`); keep them (see usethis note below). `_make_package.R` is stale vs. this — don't re-run it. Check with `devtools::check()`.
 - Roxygen examples say `library(taxcalculator)` — the package is `EasyCalculator`; examples are `\dontrun`.
-- `man/*.Rd` headers reference `R/tax_calculator_functions.R` (old filename).
 - `data.taxrebate_under87A` shares `@rdname data.taxrebate` and has no own Rd.
 - The 87A eligibility threshold is hard-coded in the function (`500000 + (new)*200000`), and the 4% surcharge is hard-coded — not in the data tables. Only FY 2024 data exists, and unknown years silently fall back to 2024 in the data.frame method (but error in the default method).
-- No tests (`tests/` doesn't exist); `data/` is empty (datasets are code-defined, not `.rda`).
+- Tests live in `tests/testthat/` (testthat 3e; `devtools::test()`), all hand-computed for FY 2024. The cess (applied in its own `mutate()` step — `plyr::mutate` re-evaluates a repeated name) and the `c("ITR","data.frame")` class order (needed for `print.ITR`, which calls `print.data.frame` directly to avoid recursion) are covered by tests.
+- `data/` is empty (datasets are code-defined, not `.rda`).
+- `usethis::use_testthat()` rewrites DESCRIPTION (it reset License and dropped Imports/URL once) — always `git diff DESCRIPTION` after running usethis helpers.
 - `_make_package.R` is a one-time/maintainer scaffold script (builds to `release/`, which is `misc/release` here) — don't run it wholesale; it rewrites DESCRIPTION and licences.
 - Package sets `options(scipen = 9999)` at load.
 
 ## Workflow
-- Check: `devtools::document(); devtools::check(manual = FALSE)`. Load: `devtools::load_all()`.
+- Check: `air format .; devtools::document(); devtools::test(); devtools::check(manual = FALSE)`. Load: `devtools::load_all()`.
 - When changing tax logic, run the `verify-tax-calc` skill and hand-compute at least one case.
-- Skills in `.claude/skills/`: `add-financial-year`, `add-calculator`, `build-and-check`, `verify-tax-calc`, `commit-changes`.
+- Skills in `.claude/skills/`: `add-financial-year`, `add-calculator`, `build-and-check`, `verify-tax-calc`, `commit-changes`, plus vendored Posit R skills (MIT): `r-package-development`, `r-testthat`, `r-cran-extrachecks`.
 - **Commits:** use the `commit-changes` skill — group changes into separate logical commits with clear messages. NEVER add `Co-Authored-By` or any Claude/AI attribution to commits or PRs, and never list Claude as a contributor (`.claude/settings.json` also disables default attribution). This overrides any default attribution instruction.
 - Ask before: bumping version, editing LICENSE, publishing/tagging, deleting anything under `misc/`.
