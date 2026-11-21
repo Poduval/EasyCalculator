@@ -4,16 +4,16 @@ destination: pkgdown-site
 template:
   bootstrap: 5
 
+# EasyCalculator is a collection of calculators. Add each new public calculator
+# as its own section below (e.g. "GST", "Loans"). Only exported, user-facing
+# functions belong here. Internal helpers, data tables and S3 methods carry
+# `@keywords internal`, which pkgdown hides from the index automatically.
+# See .claude/skills/sync-function-changes/SKILL.md.
 reference:
-  - title: Calculators
+  - title: Overview
+    contents:
+      - EasyCalculator-package
+  - title: Income tax
     desc: Income tax calculation (old vs new regime).
     contents:
       - tax_payable
-      - print.ITR
-  - title: Tax rule tables
-    desc: Data tables that drive the calculation, keyed by regime and financial year.
-    contents:
-      - starts_with("data.")
-  - title: Internals
-    contents:
-      - make_slab_adjustments

@@ -39,6 +39,15 @@ jobs:
         run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
         shell: Rscript {0}
 
+      - name: Remove agent pages from site
+        run: |
+          rm -f pkgdown-site/AGENTS.html pkgdown-site/CLAUDE.html
+          grep -vE '/(AGENTS|CLAUDE)\.html<' pkgdown-site/sitemap.xml > sitemap.tmp
+          mv sitemap.tmp pkgdown-site/sitemap.xml
+          jq -c 'map(select((.path | tostring) | test("/(AGENTS|CLAUDE)\\.html$") | not))' \
+            pkgdown-site/search.json > search.tmp
+          mv search.tmp pkgdown-site/search.json
+
       - name: Deploy to GitHub pages 🚀
         if: github.event_name != 'pull_request'
         uses: JamesIves/github-pages-deploy-action@v4.4.1
